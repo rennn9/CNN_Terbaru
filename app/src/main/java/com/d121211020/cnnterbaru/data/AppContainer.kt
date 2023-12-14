@@ -1,14 +1,14 @@
 package com.d121211020.cnnterbaru.data
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.d121211020.cnnterbaru.data.repository.DataRepository
+import com.d121211020.cnnterbaru.data.repository.CNNRepository
 import com.d121211020.cnnterbaru.data.source.remote.ApiService
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
 interface AppContainer {
-    val dataRepository: DataRepository
+    val cnnrepository: CNNRepository
 }
 
 class DefaultAppContainer : AppContainer {
@@ -23,8 +23,6 @@ class DefaultAppContainer : AppContainer {
     private val retrofitService: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
-
-    override val dataRepository: DataRepository
-        get() = DataRepository(retrofitService)
-
+    override val cnnrepository: CNNRepository
+        get() = CNNRepository(retrofitService)
 }
