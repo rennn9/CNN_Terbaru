@@ -1,5 +1,6 @@
 package com.d121211020.cnnterbaru.ui.activity.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,6 +25,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 import com.d121211020.cnnterbaru.data.model.Data
 import com.d121211020.cnnterbaru.ui.theme.CnnTerbaruTheme
+import com.d121211020.cnnterbaru.ui.activity.detail.DetailActivity
 
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.layout.Spacer
@@ -72,7 +74,7 @@ class MainActivity : ComponentActivity() {
     private fun ListDataScreen(mainUiState: MainUiState, modifier: Modifier = Modifier) {
         Column {
             when (mainUiState) {
-                is MainUiState.Success -> ListData(mainUiState.dataList)
+                is MainUiState.Success -> ListData(mainUiState.data)
                 is MainUiState.Error -> ErrorText()
                 is MainUiState.Loading -> LoadingBar()
             }
@@ -106,7 +108,9 @@ class MainActivity : ComponentActivity() {
                 .fillMaxWidth()
                 .padding(vertical = 8.dp, horizontal = 16.dp)
                 .clickable {
-                    // Handle click action here
+                    val intent = Intent(this, DetailActivity::class.java)
+                    intent.putExtra("DATA", data)
+                    startActivity(intent)
                 },
             colors = CardDefaults.cardColors(
                 containerColor = Color.White),
